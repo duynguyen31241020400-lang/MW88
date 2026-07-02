@@ -1,1 +1,2 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap');
+/* Google Fonts are loaded from index.html via <link rel="preload"> so the
+   browser can start fetching them before the CSS bundle parses. */

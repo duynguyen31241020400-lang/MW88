@@ -1,0 +1,117 @@
+/* Keyframes and utility classes for App.tsx micro-interactions.
+   Kept as a static stylesheet (instead of a JS-injected <style> tag) so it is
+   parsed once by the browser and doesn't need brand-color interpolation. */
+
+* {
+  box-sizing: border-box;
+}
+
+/* ── keyframes ── */
+@keyframes logoIn { from { opacity: 0; transform: scale(.9) } to { opacity: 1; transform: scale(1) } }
+@keyframes echoRing { 0% { opacity: .55; transform: scale(1) } 100% { opacity: 0; transform: scale(1.9) } }
+@keyframes taglineIn { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: translateY(0) } }
+@keyframes btnPop { from { opacity: 0; transform: scale(.75) } to { opacity: 1; transform: scale(1) } }
+@keyframes letterIn { from { opacity: 0; transform: translateY(7px) } to { opacity: 1; transform: translateY(0) } }
+@keyframes lineGrow { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(28px) } to { opacity: 1; transform: translateY(0) } }
+@keyframes cardPop { from { opacity: 0; transform: scale(.75) } to { opacity: 1; transform: scale(1) } }
+@keyframes slideLeft { from { opacity: 0; transform: translateX(-40px) } to { opacity: 1; transform: translateX(0) } }
+@keyframes slideRight { from { opacity: 0; transform: translateX(40px) } to { opacity: 1; transform: translateX(0) } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px) } to { opacity: 1; transform: translateY(0) } }
+@keyframes floatArrow {
+  0%, 100% { transform: translateY(0); opacity: 1 }
+  50% { transform: translateY(9px); opacity: .6 }
+}
+
+/* ── hero animations ── */
+.logo-entrance { animation: logoIn .75s ease-out both }
+.echo-ring-1 { animation: echoRing 1.1s ease-out forwards .8s }
+.echo-ring-2 { animation: echoRing 1.1s ease-out forwards 1.15s }
+.tagline-in { animation: taglineIn .6s cubic-bezier(.16,1,.3,1) both }
+.btn-pop-1 { animation: btnPop .55s ease-out both .25s }
+.btn-pop-2 { animation: btnPop .55s ease-out both .55s }
+.scroll-hint-in { animation: taglineIn .6s ease both .55s }
+.float-arrow { animation: floatArrow 1.35s ease-in-out infinite }
+
+/* ── dividers ── */
+.div-active .d-line { animation: lineGrow .72s ease-out both }
+.d-line { transform: scaleX(0); transform-origin: left }
+
+/* ── persona cards ── */
+.cards-active .card-item { animation: cardPop 1.25s cubic-bezier(0.22,1.4,0.55,1) both }
+.cards-active .card-item:nth-child(1) { animation-delay: .25s }
+.cards-active .card-item:nth-child(2) { animation-delay: .38s }
+.cards-active .card-item:nth-child(3) { animation-delay: .51s }
+.cards-active .card-item:nth-child(4) { animation-delay: .64s }
+.cards-active .card-item:nth-child(5) { animation-delay: .77s }
+.card-item { opacity: 0 }
+
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(8px, 1.2vw, 18px);
+}
+
+/* ── about us ── */
+.about-active .col-left { animation: slideLeft .65s cubic-bezier(.16,1,.3,1) both .1s }
+.about-active .col-right { animation: slideRight .65s cubic-bezier(.16,1,.3,1) both .22s }
+.about-active .mv-box { animation: fadeUp .6s cubic-bezier(.16,1,.3,1) both .5s }
+.col-left { opacity: 0 }
+.col-right { opacity: 0 }
+.mv-box { opacity: 0 }
+
+/* ── nav ── */
+.nav-link {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-weight: 500;
+  font-size: .82rem;
+  letter-spacing: .08em;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.nav-link:hover { color: var(--brand-red); border-color: var(--brand-red) }
+
+.nav-links-desktop {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.5vw, 36px);
+}
+
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── cursor ── */
+@media (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
+/* ── responsive breakpoints ── */
+@media (max-width: 900px) {
+  .persona-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 720px) {
+  .about-2col { grid-template-columns: 1fr !important }
+  .mv-2col { grid-template-columns: 1fr !important }
+  .mv-2col > div:first-child { border-right: none !important; border-bottom: 1.5px solid var(--brand-red) }
+
+  .nav-links-desktop { display: none }
+  .nav-hamburger { display: flex }
+}
+
+@media (max-width: 480px) {
+  .persona-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+::-webkit-scrollbar { width: 0 }
